@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
 
-	validates_presence_of :title, :body
+	belongs_to :user
+	
+	validates_presence_of :title, :body#, :user_id
 	validates :title, length: { minimum: 5, maximum: 100 }
 	validates :title, uniqueness: true
 end

@@ -1,5 +1,25 @@
 Rails.application.routes.draw do
+  get 'sessions/login'
+
+  get 'sessions/logout' => 'sessions#logout', as: 'sessions_logout'
+
+  post 'sessions' => 'sessions#create'
+
+  #get 'users/new'
+
   resources :posts
+
+  #GET   /posts  posts#index  display a list of all posts
+  #GET   /posts/new   posts#new  return an HTML form for creating a new photo
+  #POST  /posts   posts#create   create a new photo
+  #GET   /posts/:id   posts#show   display a specific photo
+  #GET   /posts/:id/edit  posts#edit   return an HTML form for editing a photo
+  #PATCH/PUT   /posts/:id   posts#update   update a specific photo
+  #DELETE  /posts/:id   posts#destroy  delete a specific photo
+  
+  get 'registration' => 'users#new', as: 'registration'  # = get 'registration' => 'users#new'
+
+  post 'users' => 'users#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

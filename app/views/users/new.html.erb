@@ -1,0 +1,25 @@
+<h1>Registration</h1>
+<p>Please enter your personal information</p>
+
+<%= form_for(@user) do |f| %>
+ 
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>  <! #password_field hides symbols instead of text_field >
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Register'%>
+  </div>
+<% end %>
+

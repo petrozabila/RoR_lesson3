@@ -26,7 +26,7 @@ class PostsController < ApplicationController
 	# PATCH/PUT /posts/1
 	def update
 	  if @post.update(post_params)
-	    redirect_to @post, notice: 'Post was successfully updated.'
+	    redirect_to @post, notice: 'Post was successfully updated.' #redirect_to post_path(@post) OR redirect_to post_path(params[:id])
 	  else
 	    render :edit
 	  end

@@ -11,14 +11,15 @@
   </thead>
 
   <tbody>
+    <%= current_user.name.capitalize if current_user%>
     <% @posts.each do |post| %>
       <tr>
         <td bgcolor="#CCCC00"><%= post.title %></td>
         <td bgcolor="#CCCC33"><%= post.body %></td>
         <td bgcolor="#CCCC66"><%= post.tags %></td>
-        <td bgcolor="#CCCC99"><%= link_to 'Show', post %></td>
-        <td bgcolor="#CCCCCC"><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td bgcolor="#CCCCFF"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td bgcolor="#CCCC99"><%= link_to 'Show', post if current_user %></td>
+        <td bgcolor="#CCCCCC"><%= link_to 'Edit', edit_post_path(post) if current_user %></td>
+        <td bgcolor="#CCCCFF"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td> 
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +27,4 @@
 
 <br>
 
-<h3><%= link_to 'New Post', new_post_path %></h3>
+<h3><%=  link_to 'New Post', new_post_path if current_user %></h3>

@@ -1,3 +1,14 @@
+
+	
+
 <div id="header">	
-  <h1 style="color: #00ff00;"><%= link_to 'Test App', root_path %></h1>  
+
+	<ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><%= link_to 'Login', sessions_login_path %></li>
+      <li role="presentation"><%= link_to 'Logout', sessions_logout_path %></li>
+      <li role="presentation"><%= link_to 'Registration', registration_path %></li>
+    </ul>
+  <h1 style="color: #00ff00;"><%= link_to 'Test Application', root_path %></h1>  
+
+  
 </div>

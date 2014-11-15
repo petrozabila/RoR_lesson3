@@ -4,7 +4,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_email(params[:email])
+    @user = User.find(params[:id]) 
+    @posts = Post.all.order(:updated_at).reverse
+    #@posts = Post.find(params[:user_id])
+    #@name = params[:name]
   end
 
   def create

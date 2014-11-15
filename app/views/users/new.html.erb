@@ -1,7 +1,18 @@
 <h1>Registration</h1>
 <p><strong><h3>Please enter your personal information</h3></strong></p>
 
-<%= form_for(@user) do |f| %>
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email, placeholder: 'please enter your email' %>
+  <%= f.input :password, placeholder: 'not less than 6 symbols' %>
+  <%= f.submit 'Register' %>
+<% end %>
+
+
+
+
+<!--<%= form_for(@user) do |f| %>
  
   <div class="field">
     <strong><%= f.label :name %><br></strong>
@@ -21,5 +32,5 @@
   <div class="actions">
     <%= f.submit 'Register'%>
   </div>
-<% end %>
+<% end %> -->
 

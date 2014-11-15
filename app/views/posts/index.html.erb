@@ -11,7 +11,8 @@
   </thead>
 
   <tbody>
-    <%= current_user.name.capitalize if current_user%>
+    <%= link_to current_user.name.capitalize if current_user %>
+    <%= link_to "My profile", user_path %>
     <% @posts.each do |post| %>
       <tr>
         <td bgcolor="#CCCC00"><%= post.title %></td>

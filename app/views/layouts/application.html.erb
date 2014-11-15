@@ -11,11 +11,11 @@
 	<%= render 'layouts/header' %>
 
 <div id="nav">
-	 <h3 style="color: #00ff00;"><%= link_to 'Menu', root_path %></h3> 
+	 <h3><%= link_to 'Menu', root_path %></h3> 
 	   <ul class="nav nav-pills nav-stacked" role="tablist">
          <li role="presentation" class="active"><%= link_to 'Main page', root_path %></li>
-         <li role="presentation" class="active"><%= link_to 'Contacts'%></li>
-         <li role="presentation" class="active"><%= link_to 'About us'%></li>
+         <li role="presentation" class="active"><%= link_to 'Contacts', contact_path%></li>
+         <li role="presentation" class="active"><%= link_to 'About us', about_path%></li>
        </ul>
 </div>
 

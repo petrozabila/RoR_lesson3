@@ -3,9 +3,18 @@ class PostsController < ApplicationController
 
 	def index
 	  @posts = Post.all
+	  #render text: "hello"
+	  #@name = params[:name]
+
+	 
+	 	#cookies[:view] = if cookies[:view].present? 
+	 		#cookies[:view]to_i +1
+	 
+
 	end
 	# GET /posts/1
 	def show
+		@post = Post.find(params[:id])
 	end
 	# GET /posts/new
 	def new

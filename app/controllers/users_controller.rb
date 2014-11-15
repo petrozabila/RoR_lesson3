@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id]) 
-    @posts = Post.find(params[:user_id])
+    @user = User.find_by_email(params[:email])
   end
 
   def create

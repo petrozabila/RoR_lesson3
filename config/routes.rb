@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'static_pages/contact' => 'static_pages#contact', as: 'contact'
+
+  get 'static_pages/about' => 'static_pages#about', as: 'about'
+
   get 'sessions/login'
 
   get 'sessions/logout' => 'sessions#logout', as: 'sessions_logout'

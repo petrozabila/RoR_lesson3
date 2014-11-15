@@ -12,7 +12,7 @@
 
   <tbody>
     <%= link_to current_user.name.capitalize if current_user %>
-     <%= link_to "My profile", user_path(current_user.id) %>
+     <%= link_to "My profile", user_path(current_user.id) if current_user %>
     <% @posts.each do |post| %>
       <tr>
         <td bgcolor="#CCCC00"><%= post.title %></td>

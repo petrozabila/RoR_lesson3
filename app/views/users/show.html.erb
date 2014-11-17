@@ -1,4 +1,14 @@
-
-<%= @user.name %>
-<%= @user.posts %>
-<%= @current_user %>
+<div>
+  <p>Posted by <strong><%= @user.name %></strong></p>
+    <%= @user.posts.each do |post| %>
+      <tr>
+        <td bgcolor="#CCCC00"><%= post.title %></td>
+        <td bgcolor="#CCCC33"><%= post.body %></td>
+        <td bgcolor="#CCCC66"><%= post.tags %></td>
+        <td bgcolor="#CCCC99"><%= link_to 'Show', post if current_user %></td>
+        <td bgcolor="#CCCCCC"><%= link_to 'Edit', edit_post_path(post) if current_user %></td>
+        <td bgcolor="#CCCCFF"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td> 
+      </tr>
+    <% end %>
+  <%= link_to 'Back', posts_path, class: "btn btn-primary" %>
+</div>

@@ -5,16 +5,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id]) 
-    @posts = Post.all.order(:updated_at).reverse
+    @posts = @user.posts
+    #@posts = current_user.posts
+    #@posts = Post.where(user_id: @user.id)
     #@posts = Post.find(params[:user_id])
     #@name = params[:name]
   end
 
+  
   def create
   	@user = User.new(params.require(:user).permit(:name, :email, :password))
   	if @user.save
       session[:user_id] = @user.id 
-  	  redirect_to user_path
+  	  redirect_to @user
     else
   	  redirect_to :back
     end 

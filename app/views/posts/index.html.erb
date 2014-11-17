@@ -11,13 +11,14 @@
   </thead>
 
   <tbody>
-    <%= link_to current_user.name.capitalize if current_user %>
+   <%= link_to current_user.name.capitalize if current_user %>
      <%= link_to "My profile", user_path(current_user.id) if current_user %>
     <% @posts.each do |post| %>
       <tr>
         <td bgcolor="#CCCC00"><%= post.title %></td>
         <td bgcolor="#CCCC33"><%= post.body %></td>
         <td bgcolor="#CCCC66"><%= post.tags %></td>
+        Posted by user <%= post.user %>
         <td bgcolor="#CCCC99"><%= link_to 'Show', post if current_user %></td>
         <td bgcolor="#CCCCCC"><%= link_to 'Edit', edit_post_path(post) if current_user %></td>
         <td bgcolor="#CCCCFF"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td> 

@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
 	def index
-	  @posts = Post.all
+	  @posts = Post.all.order(:updated_at).reverse
+	  #@user = User.find(params[:id]) 
 	  #render text: "hello"
 	  #@name = params[:name]
 
@@ -22,6 +23,12 @@ class PostsController < ApplicationController
 	end
 	# GET /posts/1/edit
 	def edit
+		@post = Post.find(params[:id])
+      if current_user?(@post.user)
+        redirect_to :back
+        flash[:notice] = 'You can not edit this post'
+    end
+
 	end
 	# POST /posts
 	def create

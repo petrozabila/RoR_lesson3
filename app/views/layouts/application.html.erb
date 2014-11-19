@@ -13,9 +13,10 @@
 <div id="nav">
 	 <h3><%= link_to 'Menu', root_path %></h3> 
 	   <ul class="nav nav-pills nav-stacked" role="tablist">
-         <li role="presentation" class="active"><%= link_to 'Main page', root_path %></li>
-         <li role="presentation" class="active"><%= link_to 'Contacts', contact_path%></li>
-         <li role="presentation" class="active"><%= link_to 'About us', about_path%></li>
+      <li role="presentation" class="active"> <%= link_to "My profile", user_path(current_user.id) if current_user %></li>
+         <li role="presentation"><%= link_to 'Main page', root_path %></li>
+         <li role="presentation"><%= link_to 'Contacts', contact_path%></li>
+         <li role="presentation"><%= link_to 'About us', about_path%></li>
        </ul>
 </div>
 
@@ -23,10 +24,9 @@
 
 
 <div id="section">
+  <%= yield %>
 </div>
 	
-
-	<%= yield %>
 
 	<%= render 'layouts/footer' %>
 

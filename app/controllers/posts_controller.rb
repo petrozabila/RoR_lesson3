@@ -1,8 +1,13 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  #before_action :check_post_user, only: [:edit, :update, :destroy]
+
 
 	def index
+		#@user = User.find(params[:id])
+		#@current_user.posts = Post.where(session[:user_id])
 	  @posts = Post.all.order(:updated_at).reverse
+      #@number = current_user.posts.count
 	  #@user = User.find(params[:id]) 
 	  #render text: "hello"
 	  #@name = params[:name]
@@ -15,6 +20,8 @@ class PostsController < ApplicationController
 	end
 	# GET /posts/1
 	def show
+		#@user = User.find(params[:id])
+		#@posts = Post.where(user_id: @user.id)
 		@post = Post.find(params[:id])
 	end
 	# GET /posts/new
@@ -32,7 +39,7 @@ class PostsController < ApplicationController
 	end
 	# POST /posts
 	def create
-		#@user = User.find(params[:id])
+
 	  @post = Post.new(post_params)
 	   if @post.save
 	    redirect_to @post, notice: 'Post was successfully created.'
@@ -60,9 +67,16 @@ class PostsController < ApplicationController
 	def set_post
 	  @post = Post.find(params[:id])
 	end
+
+	def check_post_user
+	    unless current_user == @post.user
+	      redirect_to root_path
+	    end
+    end
+	
 	# Only allow a trusted parameter "white list" through.
 	def post_params
-	  params.require(:post).permit(:title, :body)
+	  params.require(:post).permit(:title, :body, :tags)
 	end
 
 end

@@ -10,11 +10,31 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  def user(user_id)
+    @user ||= User.find(user_id) if user_id
+  end
+
+  def banner_show
+    views_count % 10 == 0
+  end
+
+  helper_method :banner_show
+
 
   def current_user?(user)
   	user == current_user
   end
 
   helper_method :current_user?
+
+  private
+
+  def views_count 
+    if cookies[:views].present?
+      cookies[:views] = cookies[:views].to_i + 1;
+    else
+      cookies[:views] = 1;
+    end
+  end
 
 end

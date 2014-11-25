@@ -1,0 +1,22 @@
+<h1>Listing comments</h1>
+
+<br>
+<% @comments.each do |comment| %>
+  <div class="row">
+    <div class="span1">
+      <%= image_tag comment.user.gravatar_url %>
+      <%= comment.user.name %>
+    </div>
+    <div class="span9">
+      <p class="meta">
+        <%= comment.body %>
+      </p>
+      <p class="meta-list">
+        <strong>Commented by </strong>
+        <%= comment.user.name %>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'New Comment', new_comment_path %>

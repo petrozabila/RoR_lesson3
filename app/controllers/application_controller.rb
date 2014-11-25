@@ -3,12 +3,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  helper_method :current_user, :banner_show, :current_user?
+
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
     #@user = User.find(params[:id])
   end
 
-  helper_method :current_user
 
   def user(user_id)
     @user ||= User.find(user_id) if user_id
@@ -18,23 +19,20 @@ class ApplicationController < ActionController::Base
     views_count % 10 == 0
   end
 
-  helper_method :banner_show
-
 
   def current_user?(user)
   	user == current_user
   end
 
-  helper_method :current_user?
 
-  private
+private
 
-  def views_count 
-    if cookies[:views].present?
-      cookies[:views] = cookies[:views].to_i + 1;
-    else
-      cookies[:views] = 1;
+    def views_count 
+      if cookies[:views].present?
+        cookies[:views] = cookies[:views].to_i + 1;
+      else
+        cookies[:views] = 1;
+      end
     end
-  end
 
 end

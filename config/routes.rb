@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :comments
+
+  resources :posts do
+    resources :comments
+
+    member do
+    put "like", to: "posts#upvote"
+    put "dislike", to: "posts#downvote"
+    end
+  end
+
   get 'static_pages/contact' => 'static_pages#contact', as: 'contact'
 
   get 'static_pages/about' => 'static_pages#about', as: 'about'
@@ -27,7 +38,7 @@ Rails.application.routes.draw do
 
   get 'users/:id' => 'users#show'
 
-  resources :users, only: :show
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

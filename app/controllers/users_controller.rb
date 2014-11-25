@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    #@posts = Post.where(user_id: @user.id)
     @user = User.find(params[:id]) 
+    @users = User.all
     @posts = @user.posts
     #@posts = current_user.posts
     #@posts = Post.where(user_id: @user.id)
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   	@user = User.new(params.require(:user).permit(:name, :email, :password))
   	if @user.save
       session[:user_id] = @user.id 
-  	  redirect_to @user
+  	  redirect_to root_path
     else
   	  redirect_to :back
     end 

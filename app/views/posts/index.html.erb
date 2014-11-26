@@ -28,6 +28,7 @@
  <hr>     
 
     <%= link_to "upvote", like_post_path(post), method: :put %>
+    |
     <%= link_to "downvote", dislike_post_path(post), method: :put %>
     <%= post.score %>
 
@@ -37,7 +38,6 @@
 
 <h3><%=  link_to 'New Post', new_post_path if current_user %></h3>
 </div>
-
 
 
 

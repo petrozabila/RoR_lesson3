@@ -1,3 +1,14 @@
+<div id='paginator'>
+<%= will_paginate %>
+</div>
+
+
+<div class="popular">
+  <%= link_to 'Show Popular', posts_path(popular: 'true') %>
+  
+  <%= link_to 'Last Updated', posts_path(updated: 'true') %>
+</div>
+
 <h1>Listing posts</h1>
 <ul class="list-group"> 
   <li class="list-group-item active"> Author online:<%= link_to current_user.name.capitalize, user_path(current_user.id) if current_user %>
@@ -6,38 +17,14 @@
 <hr>
 
 <div>
-  <% @posts.each do |post| %>
-  <table>
-        <tr>
-          <td><%= image_tag avatar_url(post.user) %></td>
-          <td>Posted by: <strong><%= post.user.name.capitalize if post.user %></strong></td>
-        </tr>
-      </table>
+  <%= render @posts %>
 
-    <p><strong><%= post.title.capitalize %></strong></p>
-    <p><%= post.body %></p>
-    <p><strong>Tags:</strong><%= post.tags %></p>
-     
-      <table>
-        <tr>
-            <td bgcolor="#CCCC99"><%= link_to 'Show', post if current_user %></td>
-            <td bgcolor="#CCCCCC"><%= link_to 'Edit', edit_post_path(post) if current_user %></td>
-            <td bgcolor="#CCCCFF"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td> 
-        </tr>
-      </table>
- <hr>     
-
-    <%= link_to "upvote", like_post_path(post), method: :put %>
-    |
-    <%= link_to "downvote", dislike_post_path(post), method: :put %>
-    <%= post.score %>
-
-    <p><%= link_to 'Comments', post_path(post) %>: <%= post.comments.length %></p>
-     <hr> 
-<% end %>
-
-<h3><%=  link_to 'New Post', new_post_path if current_user %></h3>
+<h3 class='new_post'><%= link_to 'New post', new_post_path, id: 'new_post_link', remote: true if current_user %></h3>
 </div>
 
 
+<%= cookies[:hits] %>
 
+<div id='paginator'>
+<%= will_paginate %>
+</div>

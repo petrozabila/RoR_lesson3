@@ -16,7 +16,8 @@ class PostsController < ApplicationController
 
 
 	def index
-    	@posts = Post.all.order(:created_at).reverse
+		#@posts = Post.paginate(:page => params[:page], :per_page => 6)
+    	@posts = Post.paginate(:page => params[:page], :per_page => 2)
     	@number = current_user.posts.count if current_user
 
     	respond_to do |format|
@@ -26,7 +27,7 @@ class PostsController < ApplicationController
 	      }
 
 		@users = User.all
-		#@comment = Comment.new
+		
 		#@comments = Comment.all
     	end
 	end
@@ -79,12 +80,13 @@ class PostsController < ApplicationController
 	  @post = Post.new(post_params)
 	  @post.user_id = current_user.id
 	  @post.user = current_user
-	   if @post.save
-	    redirect_to @post, notice: 'Post was successfully created.'
-	   else
-	    render :new
-	   end
-	end
+	  
+		 if @post.save
+		 	#render @posts
+		 else
+		   #some alert
+		end
+    end
 	# PATCH/PUT /posts/1
 	def update
 		@post = Post.find(params[:id])

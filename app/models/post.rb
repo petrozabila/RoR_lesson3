@@ -18,5 +18,9 @@ class Post < ActiveRecord::Base
   	end
 	
 
+	scope :newest, ->  { order( created_at: :desc ) }
+    scope :popular, -> { order( voted_rate: :desc ) }
+    scope :last_updated, -> { order( updated_at: :desc ) }
+
 	#validates :user_id, presence: true
 end

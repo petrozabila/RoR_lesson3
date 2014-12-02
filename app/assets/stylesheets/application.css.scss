@@ -10,9 +10,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
-
+ *= require_self
+ *= require_tree .
  *= require bootstrap
  *= rails_bootstrap_forms
+
 
 
  */
@@ -30,8 +32,6 @@ body {
 } 
 
 
-
-
 #signin {
 	text-align: right;
 	font-size: 170%;
@@ -41,6 +41,12 @@ body {
     background-color:black;
     text-align:center;
     padding:5px;
+    height:120px;
+}
+
+#paginator {
+    margin-left: 360px;
+ 
 }
 
 #footer {
@@ -53,12 +59,32 @@ body {
 }
 
 #section {
-    width:80%;
+    width:70%;
     float:left;
     padding:10px;
+    background-color:#C0C0C0;
 }
 
+    #comments {
+            margin-left:50px;
+            margin-bottom:5px;
+            padding:10px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #A0A0A0; 
+            border-radius: 24px;
+            width:500px;
+    }
 
+    #poster {
+        margin:10px;
+        padding:10px;
+        bborder-width: 5px;
+        border-style: solid;
+        border-color: #F0F0F0; 
+        border-radius: 24px;
+        width:500px;
+    }
 
 #main_menu {
 	text-align: left;
@@ -69,8 +95,8 @@ body {
 #nav {
     line-height:30px;
     background-color:#eeeeee;
-    height:800px;
-    width:150px;
+    height:900px;
+    width:180px;
     float:left;
     padding:5px;
     font-family: "Times New Roman", Times, serif;
@@ -81,6 +107,8 @@ body {
 	font-size: 120%;
     display:block;
 }
+
+
 
 
 

@@ -82,9 +82,9 @@ class PostsController < ApplicationController
 	  @post.user = current_user
 	  
 		 if @post.save
-		 	#render @posts
+		 	redirect_to @post, notice: 'Post was successfully created.'
 		 else
-		   #some alert
+		   render :new
 		end
     end
 	# PATCH/PUT /posts/1

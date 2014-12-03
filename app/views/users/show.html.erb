@@ -1,3 +1,7 @@
+<div id='paginator'>
+<%= will_paginate @posts %>
+<%= page_entries_info @posts %><br/>
+</div>
 
 <tr>
   <td><%= image_tag avatar_url(@user) %></td>
@@ -40,12 +44,14 @@
       </tr>
     </table>
     
-
+    <% if post.comments.any? %>
     <h3>Comments</h3>
+    <% end %>
     <% post.comments.each do |comment| %>
-    <div id="comments">
+    
     <%= image_tag avatar_url(comment.user) %>
         <p><strong><%= comment.user.name.capitalize %>:</strong></p>  
+        <div id="comments">
         <p><strong> - </strong><%= comment.body %></p>
         </div>
     <% end %>
@@ -68,3 +74,4 @@
 <%= link_to 'Back', posts_path, class: "btn btn-primary" %>
 </div>
 <hr>
+

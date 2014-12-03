@@ -22,5 +22,10 @@ class Post < ActiveRecord::Base
     scope :popular, -> { order( voted_rate: :desc ) }
     scope :last_updated, -> { order( updated_at: :desc ) }
 
+    after_create :update_post
+  def update_post
+    self.post.touch
+  end
+
 	#validates :user_id, presence: true
 end

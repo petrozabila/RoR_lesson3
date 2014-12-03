@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id]) 
     @users = User.all
-    @posts = @user.posts
+    @posts = @user.posts.paginate(:page => params[:page], :per_page => 3)
+
     #@posts = current_user.posts
     #@posts = Post.where(user_id: @user.id)
     #@posts = Post.find(params[:user_id])

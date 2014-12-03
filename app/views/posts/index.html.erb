@@ -1,12 +1,14 @@
 <div id='paginator'>
 <%= will_paginate %>
+<%= page_entries_info @posts %><br/>
 </div>
 
 
 <div class="popular">
   <%= link_to 'Show Popular', posts_path(popular: 'true') %>
-  
-  <%= link_to 'Last Updated', posts_path(updated: 'true') %>
+  |
+  <%= link_to 'Last Updated', posts_path(last_updated: 'true') %>
+
 </div>
 
 <h1>Listing posts</h1>
@@ -18,9 +20,10 @@
 
 <div>
   <% @posts.each do |post| %>
+ 
       <table>
         <tr>
-          <td><%= image_tag avatar_url(post.user) %></td>
+          <td><%= image_tag avatar_url(post.user), class: 'avatar' %></td>
           <td>Posted by: <strong><%= post.user.name.capitalize if post.user %></strong></td>
         </tr>
       </table>
@@ -52,7 +55,7 @@
 </div>
 
 
-<%= cookies[:views] %>
+<p>Total views: <%= cookies[:views] %></p>
 
 <div id='paginator'>
 <%= will_paginate %>

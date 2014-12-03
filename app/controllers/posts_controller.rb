@@ -2,20 +2,41 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   #before_action :check_post_user, only: [:edit, :update, :destroy]
   	def upvote
-	  @post = Post.find(params[:id])
-	  @post.upvote_by current_user
-	  redirect_to root_path
+    @post.upvote_from current_user
+    @post.rating = @post.get_likes.size - @post.get_dislikes.size
+    @post.save
+    redirect_to root_path
+  end
 
-	end
 
-	def downvote
-	  @post = Post.find(params[:id])
-	  @post.downvote_by current_user
-	  redirect_to root_path
-	end
+  def downvote
+    @post.downvote_from current_user
+    @post.rating = @post.get_likes.size - @post.get_dislikes.size
+    @post.save
+    redirect_to root_path
+  end
+
+  def votes
+    @post = Post.find(params[:post_id])
+    if params[:vote] == '+'
+      @post.upvote_from current_user
+      @post.rating += 1
+      @post.save
+    elsif params[:vote] == '-'
+      @post.downvote_from current_user
+      @post.rating -= 1
+      @post.save
+    end
+  end
+
 
 
 	def index
+		if params[:sort] == 'popular'
+	      @posts = Post.popular
+	    elsif params[:sort] == 'acitve'
+	      @posts = Post.active
+	    else
 		#@posts = Post.paginate(:page => params[:page], :per_page => 6)
     	@posts = Post.paginate(:page => params[:page], :per_page => 2)
     	@number = current_user.posts.count if current_user
@@ -27,25 +48,9 @@ class PostsController < ApplicationController
 	      }
 
 		@users = User.all
-		
-		#@comments = Comment.all
+	end
     	end
 	end
-
-
-
-		#@post = Post.find(params[:post_id])
-		#@comment = @post.comments.create(params[:comment])
-		#@user = User.find(params[:id])
-		#@current_user.posts = Post.where(session[:user_id])
-		#@user = User.find(params[:id]) 
-		#render text: "hello"
-		#@name = params[:name]
-
-	 
-	 	#cookies[:view] = if cookies[:view].present? 
-	 		#cookies[:view]to_i +1
-	 
 
 
 	# GET /posts/1
@@ -80,6 +85,7 @@ class PostsController < ApplicationController
 	  @post = Post.new(post_params)
 	  @post.user_id = current_user.id
 	  @post.user = current_user
+	  @post.rating = 0
 	  
 		 if @post.save
 		 	redirect_to @post, notice: 'Post was successfully created.'

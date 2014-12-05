@@ -23,6 +23,7 @@ class Post < ActiveRecord::Base
     scope :last_updated, -> { order( updated_at: :desc ) }
 
     after_create :update_post
+  
   def update_post
     self.post.touch
   end

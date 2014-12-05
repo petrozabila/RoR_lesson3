@@ -2,16 +2,18 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   #before_action :check_post_user, only: [:edit, :update, :destroy]
   	def upvote
+  		@post = Post.find(params[:id])
     @post.upvote_from current_user
-    @post.rating = @post.get_likes.size - @post.get_dislikes.size
+    @rating = @post.get_likes.size - @post.get_dislikes.size
     @post.save
     redirect_to root_path
   end
 
 
   def downvote
+  	@post = Post.find(params[:id])
     @post.downvote_from current_user
-    @post.rating = @post.get_likes.size - @post.get_dislikes.size
+    @rating = @post.get_likes.size - @post.get_dislikes.size
     @post.save
     redirect_to root_path
   end
@@ -20,7 +22,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:post_id])
     if params[:vote] == '+'
       @post.upvote_from current_user
-      @post.rating += 1
+      @rating += 1
       @post.save
     elsif params[:vote] == '-'
       @post.downvote_from current_user
@@ -116,6 +118,15 @@ class PostsController < ApplicationController
       end
     end
   end
+
+  def popular_posts
+    @posts = Post.popular
+  end
+
+  def active_posts
+    @posts = Post.active_posts
+  end
+
 	
 
 	private

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+	acts_as_voter
+
 	has_secure_password
 	has_many :posts, dependent: :destroy
 	has_many :comments

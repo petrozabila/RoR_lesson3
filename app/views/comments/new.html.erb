@@ -1,26 +1,16 @@
-<div class="page-header">
-  <h1>New comment</h1>
-</div>
-<%= simple_form_for(@comment, html: {class: "form-horizontal"}) do |f| %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-      <% @comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    
-    <%= f.hidden_field :post_id, :value => @post.id %>
-    <%= f.input :body, placeholder: 'New Comment' %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+     
 
 <%= link_to 'Back', posts_path %>
+
+
+
+<%= form_for([@post, @post.comments.build]) do |f| %>
+    <p>
+      <%= f.label 'Текст' %><br>
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      <%= f.submit 'OK' %>
+    </p>
+<% end %>

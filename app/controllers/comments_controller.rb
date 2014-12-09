@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new(:parent_id => params[:parent_id])
+    @post = Post.find(params[:post_id])
   end
 
   # GET /comments/1/edit

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 	has_secure_password
 	has_many :posts, dependent: :destroy
 	has_many :comments
+	belongs_to :composts
 
 	validates_presence_of :name, :email, presence: true
 	validates :name, length: { maximum: 50 }

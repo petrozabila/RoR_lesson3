@@ -1,23 +1,21 @@
 class CommentsController < ApplicationController
   #before_action :set_comment, only: [:show, :create, :edit, :update, :destroy]
-  
 
   # GET /comments
   # GET /comments.json
   def index
-    @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comment = Comment.find(params[:comment_id])
+    @composts = @comment.composts
   end
 
   # GET /comments/1
   # GET /comments/1.json
   def show
-    #@compost = Compost.find(params[:id])
   end
 
   # GET /comments/new
   def new
-    @comment = Comment.new(:parent_id => params[:parent_id])
+    @comment = Comment.new(comment_params)
   end
 
   # GET /comments/1/edit
@@ -31,10 +29,11 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user_id = current_user.id
     @comment.user = current_user
-    
-    if
+
     @comment.save
-    redirect_to @post
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
       end
   end
   # PATCH/PUT /comments/1
@@ -44,7 +43,6 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }

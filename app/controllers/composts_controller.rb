@@ -1,23 +1,23 @@
 class CommentsController < ApplicationController
   #before_action :set_comment, only: [:show, :create, :edit, :update, :destroy]
-  
+  skip_before_action :verify_authenticity_token
 
   # GET /comments
   # GET /comments.json
   def index
     @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comment = Comment.find(params[:comment_id])
+    @composts = @comment.composts
   end
 
   # GET /comments/1
   # GET /comments/1.json
   def show
-    #@compost = Compost.find(params[:id])
   end
 
   # GET /comments/new
   def new
-    @comment = Comment.new(:parent_id => params[:parent_id])
+    @compost = Compost.new(compost_params)
   end
 
   # GET /comments/1/edit
@@ -28,13 +28,15 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(comment_params)
-    @comment.user_id = current_user.id
-    @comment.user = current_user
-    
-    if
-    @comment.save
-    redirect_to @post
+    @comment = Comment.find(params[:comment_id])
+    @compost = @comment.composts.new(compost_params)
+    @compost.user_id = current_user.id
+    @compost.user = current_user
+
+    @compost.save
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
       end
   end
   # PATCH/PUT /comments/1
@@ -44,10 +46,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
+    @compost.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to composts_url, notice: 'You have shared your opinion. Thank you!' }
       format.json { head :no_content }
     end
   end
@@ -55,7 +56,7 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between action
     # Never trust parameters from the scary internet, only allow the white list through.
-    def comment_params
-      params.require(:comment).permit(:body)
+    def compost_params
+      params.require(:compost).permit(:body)
     end
 end

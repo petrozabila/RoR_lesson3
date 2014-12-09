@@ -1,0 +1,23 @@
+<h1>Listing comments</h1>
+
+<br>
+<% @composts.each do |compost| %>
+  <div class="row">
+    <div class="span1">
+      <%= image_tag compost.user.gravatar_url %>
+      <%= compost.user.name %>
+    </div>
+    <div class="span9">
+      <p class="meta">
+        <%= compost.body %>
+      </p>
+      <p class="meta-list">
+        <strong>Added by </strong>
+        <%= compost.user.name %>
+      </p>
+    </div>
+  </div>
+  
+<% end %>
+
+<%= link_to 'New Comment', new_compost_path %>

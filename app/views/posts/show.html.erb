@@ -29,22 +29,25 @@
 <% if @post.comments.any? %>
   <h3>Comments</h3>
   <% end %>
+  
 <% @post.comments.each do |comment| %>
 <div id="comments">
 <%= image_tag avatar_url(comment.user) %>
     <p><strong><%= comment.user.name.capitalize %>:</strong></p>  
     <p><strong> - </strong><%= comment.body %></p>
     </div>
+    <%= link_to 'Reply', new_comment_path(:parent_id => comment) %> |
+    <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
-
-
-  
+ 
   <% if current_user %>
   <h3>Add a comment:</h3>
       <%= simple_form_for [@post, Comment.new] do |f| %>
       <p>
-        <%= f.input :body, placeholder: 'New Comment' %>
         <%= f.hidden_field :post_id, :value => @post.id %>
+        <%= f.hidden_field :parent_id %>
+        <%= f.input :body, placeholder: 'New Comment' %>
+        
       </p>
       <p><h4><%= f.submit "Add Comment", class: "btn btn-primary" %></h4></p>
     <% end %>

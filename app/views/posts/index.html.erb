@@ -1,5 +1,5 @@
 <div id='paginator'>
-<%= will_paginate %>
+<%= will_paginate if @posts.any? %>
 <%= page_entries_info @posts %><br/>
 </div>
 

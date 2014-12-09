@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1>New comment</h1>
 </div>
-<%= form_for(@comment, html: {class: "form-horizontal"}) do |f| %>
+<%= simple_form_for(@comment, html: {class: "form-horizontal"}) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -14,8 +14,9 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    
+    <%= f.hidden_field :post_id, :value => @post.id %>
+    <%= f.input :body, placeholder: 'New Comment' %>
   </div>
   <div class="actions">
     <%= f.submit %>

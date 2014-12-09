@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
     after_create :update_post
   
   def update_post
-    self.post.touch
+    self.touch
   end
 
 	#validates :user_id, presence: true

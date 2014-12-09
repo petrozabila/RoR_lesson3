@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   #before_action :check_post_user, only: [:edit, :update, :destroy]
+
+  
   	def upvote
   		@post = Post.find(params[:id])
     @post.upvote_from current_user
@@ -87,7 +89,6 @@ class PostsController < ApplicationController
 	  @post = Post.new(post_params)
 	  @post.user_id = current_user.id
 	  @post.user = current_user
-	  @post.rating = 0
 	  
 		 if @post.save
 		 	redirect_to @post, notice: 'Post was successfully created.'

@@ -1,11 +1,12 @@
 <%= simple_form_for(comment) do |f| %>
   
   <div class="form-inputs">
-  	<%= f.inputz :body %>
+  	<%= f.hidden_field :post_id, :value => @post.id %>
+  	<%= f.hidden_field :parent_id %>
+  	<%= f.input :body %>
   </div>
 
   <div class="form-actions">
   	<%= f.button :submit %>
   </div>
   <% end %>
-

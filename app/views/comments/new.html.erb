@@ -1,16 +1,10 @@
+<div>
+<h3>Comments</h3>
 
-     
-
-<%= link_to 'Back', posts_path %>
+<%= render 'form' %>
 
 
-
-<%= form_for([@post, @post.comments.build]) do |f| %>
-    <p>
-      <%= f.label 'Текст' %><br>
-      <%= f.text_area :body %>
-    </p>
-    <p>
-      <%= f.submit 'OK' %>
-    </p>
-<% end %>
+<p>
+<%= link_to 'Main page', posts_path, class: "btn btn-primary" %>
+</p>
+</div>

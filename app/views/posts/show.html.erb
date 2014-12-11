@@ -31,19 +31,21 @@
   <% end %>
   
 <% @post.comments.each do |comment| %>
-<div id="comments">
+    <div id="comments">
 <%= image_tag avatar_url(comment.user) %>
     <p><strong><%= comment.user.name.capitalize %>:</strong></p>  
     <p><strong> - </strong><%= comment.body %></p>
     </div>
-    <%= link_to 'Reply', new_post_comment_path(@post.id, :parent_id => comment) %> 
+    <%= link_to 'Reply', new_post_comment_path(@post.id, :parent_id => comment) %> <!--|
+     <%= link_to 'Delete', [@post, comment], method: :delete, data: { confirm: 'Вы уверены?' } %> -->
 <% end %>
+
+
  
   <% if current_user %>
   <h3>Add a comment:</h3>
       <%= simple_form_for [@post, Comment.new] do |f| %>
       <p>
-        <%= f.hidden_field :parent_id %>
         <%= f.input :body, placeholder: 'New Comment' %>
         <%= f.hidden_field :post_id, :value => @post.id %>
       </p>
@@ -55,3 +57,4 @@
 <%= link_to 'Back', posts_path, class: "btn btn-primary" %>
 </div>
 <hr>
+

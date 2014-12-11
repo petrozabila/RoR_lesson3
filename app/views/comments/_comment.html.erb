@@ -1,12 +1,9 @@
-<%= simple_form_for(comment) do |f| %>
-  
-  <div class="form-inputs">
-  	<%= f.hidden_field :post_id, :value => @post.id %>
-  	<%= f.hidden_field :parent_id %>
-  	<%= f.input :body %>
-  </div>
-
-  <div class="form-actions">
-  	<%= f.button :submit %>
-  </div>
-  <% end %>
+<div id="reply">
+	<%= @post.comments.each do |comment| %>
+    <%= image_tag avatar_url(comment.user) %>
+    <p><strong><%= comment.user.name.capitalize %>:</strong></p>  
+    <p><strong> - </strong><%= comment.body %></p>
+    </div>
+    <%= link_to 'Reply', new_post_comment_path(@post.id, :parent_id => comment) %> |
+    <%= link_to 'Delete', [@post, comment], method: :delete, data: { confirm: 'Вы уверены?' } %>
+    <% end %>

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   #before_action :set_comment, only: [:show, :create, :edit, :update, :destroy]
-  
+  skip_before_action :verify_authenticity_token
 
   # GET /comments
   # GET /comments.json
@@ -12,7 +12,9 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
-    #@compost = Compost.find(params[:id])
+    @post = Post.find(params[:post_id])
+    @comments = @post.comments
+    
   end
 
   # GET /comments/new
@@ -57,6 +59,6 @@ class CommentsController < ApplicationController
     # Use callbacks to share common setup or constraints between action
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:body)
+      params.require(:comment).permit(:body, :parent_id)
     end
 end

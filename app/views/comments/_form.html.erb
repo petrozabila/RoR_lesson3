@@ -1,0 +1,13 @@
+<% if current_user %>
+  <h4>Add a comment:</h4>
+      <%= simple_form_for [@post, Comment.new] do |f| %>
+      <p>
+        <%= f.hidden_field :parent_id %>
+        <%= f.input :body, placeholder: 'New Comment' %>
+        <%= f.hidden_field :post_id, :value => @post.id %>
+      </p>
+      <p><h4><%= f.submit "Add Comment", class: "btn btn-primary" %></h4></p>
+    <% end %>
+  <% end %>
+</div>
+<hr>

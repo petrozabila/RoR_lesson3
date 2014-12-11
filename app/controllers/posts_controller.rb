@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   #before_action :check_post_user, only: [:edit, :update, :destroy]
-
+skip_before_action :verify_authenticity_token
   
   	def upvote
   		@post = Post.find(params[:id])

@@ -1,0 +1,4 @@
+$('#new_comment').remove();
+$('.reply').show();
+$('.add_comment<%= params[:id] if params[:id].to_i > 0 %>').parent().hide().parent().after('<%= j render('form') %>');
+$('.add_comment<%= params[:id] if params[:id].to_i == 0 %>').parent().after('<%= j render('form') %>');

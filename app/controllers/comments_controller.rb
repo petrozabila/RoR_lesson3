@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comments = @post.comments.paginate(:page => params[:page], :per_page => 3)
   end
 
   # GET /comments/1
@@ -19,7 +19,8 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new(:parent_id => params[:parent_id])
+    
+    @comment = Comment.new(:parent_id => params[:parent_id], :post_id => params[:post_id])
     @post = Post.find(params[:post_id])
   end
 

@@ -1,9 +1,11 @@
-<div id="reply">
-	<%= @post.comments.each do |comment| %>
-    <%= image_tag avatar_url(comment.user) %>
-    <p><strong><%= comment.user.name.capitalize %>:</strong></p>  
-    <p><strong> - </strong><%= comment.body %></p>
-    </div>
-    <%= link_to 'Reply', new_post_comment_path(@post.id, :parent_id => comment) %> |
-    <%= link_to 'Delete', [@post, comment], method: :delete, data: { confirm: 'Вы уверены?' } %>
-    <% end %>
+<% comments.each do |c, children| %>
+	<div class="next_level">
+		<blockquote>
+		  <p><%= c.body %></p>
+		  <small class="pull-right reply"><%= link_to 'Reply', new_post_comment_path(id: c.id), remote: true, class: "add_comment#{c.id}" %></small>
+		  <small><%= c.created_at.strftime('%d.%m.%Y')%></small>
+		</blockquote>
+		<%= render 'comment', comments: children if children.present? %>
+	</div>		
+<% end %>
+    

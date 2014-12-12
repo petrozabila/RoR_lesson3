@@ -1,5 +1,37 @@
-<h1>Listing comments</h1>
+<h1>Page for commenting</h1>
+<hr>
 
-<%= nested_comments @post.comments.arrange(:order => :created_at) %>
+
+<p>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </p>
+  <p>
+    <strong> - </strong>
+    <%= @post.body %>
+  </p>
+  <p>
+    <strong>Tags:</strong>
+    <%= @post.tags %>
+  </p>
+
+  
+<%= bootstrap_flash %>
+<div class="first_level comment_box">
+	<% @post.comments.each do |c| %>
+		<div class="next_level">
+			<blockquote>
+			  <p><%= c.body %></p>
+			  <small class="pull-right reply"><%= link_to 'Reply', new_post_comment_path(id: c.id), remote: true, class: "add_comment#{c.id}" %></small>
+			  <small><%= c.created_at.strftime('%d.%m.%Y')%></small>
+			</blockquote>
+			<%= render 'comment', comments: c.descendants.arrange %>
+		</div>
+	<% end %>
+</div>
+<div class="root_comment">
+	<h4><%= link_to 'Add a comment', new_post_comment_path(id: 0), remote: true, class: 'add_comment0' %></h4>
+</div>
+<%= render :partial => 'form' %>
 
 <%= link_to 'New Comment', new_post_comment_path(@post.id) %>

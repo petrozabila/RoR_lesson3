@@ -1,13 +1,15 @@
-<% if current_user %>
-  <h4>Add a comment:</h4>
-      <%= simple_form_for [@post, Comment.new] do |f| %>
-      <p>
-        <%= f.hidden_field :parent_id %>
-        <%= f.input :body, placeholder: 'New Comment' %>
-        <%= f.hidden_field :post_id, :value => @post.id %>
-      </p>
-      <p><h4><%= f.submit "Add Comment", class: "btn btn-primary" %></h4></p>
-    <% end %>
-  <% end %>
-</div>
-<hr>
+
+
+<%= form_for([@post, Comment.new], :html => { :class => 'form-vertical' }) do |f| %>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.text_area :body, rows: 5, placeholder: 'Your comment', class: 'input-block-level' %>
+    </div>
+  </div>
+  <%= f.hidden_field :parent_id, value: params[:id] ? params[:id] : nil, class: '' %>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit 'Post it!', class: 'btn' %>
+    </div>
+  </div>
+<% end %>
